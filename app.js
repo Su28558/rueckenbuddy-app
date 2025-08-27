@@ -1,6 +1,9 @@
 let timerInterval;
 let totalSeconds = 0;
 let detector;
+let lastAlertTime = 0;
+const ALERT_COOLDOWN = 20 * 1000; // 20 Sekunden Cooldown
+
 const webcam = document.getElementById("webcam");
 const minutesEl = document.getElementById("minutes");
 const secondsEl = document.getElementById("seconds");
@@ -9,6 +12,7 @@ const resetBtn = document.getElementById("resetBtn");
 const alertCard = document.getElementById("alertCard");
 const alertText = document.getElementById("alertText");
 const statusText = document.getElementById("statusText");
+const alertSound = document.getElementById("alertSound");
 
 async function setupCamera() {
   const stream = await navigator.mediaDevices.getUserMedia({
@@ -35,6 +39,7 @@ function updateTimer() {
 function showAlert(message) {
   alertText.textContent = message;
   alertCard.style.display = "block";
+  alertSound.play();
   setTimeout(()=>{alertCard.style.display="none";}, 5000);
 }
 
@@ -46,7 +51,9 @@ async function checkPosture() {
     const rightShoulder = keypoints.find(k => k.name === "right_shoulder");
     if (leftShoulder && rightShoulder) {
       const shoulderDiff = Math.abs(leftShoulder.y - rightShoulder.y);
-      if (shoulderDiff > 20) { // Threshold krumm
+      const now = Date.now();
+      if (shoulderDiff > 40 && now - lastAlertTime > ALERT_COOLDOWN) { // Sensibilität angepasst
+        lastAlertTime = now;
         const texts = [
           "Ups, dein Rücken macht wieder Yoga ohne dich! 😱",
           "Rücken sagt: 'Hallo? Ich bin noch da!' 🤨",

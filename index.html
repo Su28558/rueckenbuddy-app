@@ -1,50 +1,32 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rückenbuddy 🐻</title>
-  <link rel="stylesheet" href="style.css">
+<div class="flex-wrapper">
+  <!-- App Container -->
+  <div class="container">
+    <h1>Rückenbuddy 🐻</h1>
+    <p id="statusText">Alles gut – gerade sitzen, oder?</p>
 
-  <!-- TensorFlow.js + Pose Detection -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.8.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
-</head>
-<body>
-  <div class="flex-wrapper">
-    <!-- App Container -->
-    <div class="container">
-      <h1>Rückenbuddy 🐻</h1>
-      <p id="statusText">Alles gut – gerade sitzen, oder?</p>
-      
-      <div class="timer">
-        <span id="minutes">00</span>:<span id="seconds">00</span>
-      </div>
-      
-      <button id="startBtn">🚀 Sitz-Check starten</button>
-      <button id="resetBtn">🔄 Zurücksetzen</button>
-
-      <!-- Webcam + Overlay -->
-      <div class="video-wrapper" style="position: relative;">
-        <video id="webcam" autoplay playsinline width="320" height="240"></video>
-        <canvas id="overlay" width="320" height="240"></canvas>
-      </div>
-
-      <!-- Alert-Card -->
-      <div class="card" id="alertCard">
-        <p id="alertText"></p>
-      </div>
-
-      <!-- Signalton -->
-      <audio id="alertSound" src="v01_n-93883.mp3" preload="auto"></audio>
+    <div class="timer">
+      <span id="minutes">00</span>:<span id="seconds">00</span>
     </div>
 
-    <!-- Buddy-Bild rechts -->
-    <div class="buddy-img">
-      <img src="buddy.png" alt="Buddy" />
+    <button id="startBtn">🚀 Sitz-Check starten</button>
+    <button id="resetBtn">🔄 Zurücksetzen</button>
+
+    <!-- Webcam + Overlay -->
+    <div class="video-wrapper">
+      <video id="webcam" autoplay playsinline width="320" height="240"></video>
+      <canvas id="overlay" width="320" height="240"></canvas>
     </div>
+
+    <!-- Alert-Card -->
+    <div class="card" id="alertCard">
+      <p id="alertText"></p>
+    </div>
+
+    <audio id="alertSound" src="v01_n-93883.mp3" preload="auto"></audio>
   </div>
 
-  <script src="app.js"></script>
-</body>
-</html>
+  <!-- Buddy rechts -->
+  <div class="buddy-img">
+    <img src="buddy.png" alt="Buddy" />
+  </div>
+</div>

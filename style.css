@@ -21,7 +21,7 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 50px; /* Abstand zwischen App und Buddy-Bild */
+  gap: 50px;
 }
 
 /* App Container */

@@ -46,7 +46,6 @@ function showAlert(message) {
   alertSound.currentTime = 0;
   alertSound.play().catch(err => console.warn("Sound konnte nicht abgespielt werden:", err));
 
-  // Buddy Animation
   buddyImg.classList.add("buddy-alert");
   setTimeout(() => {
     alertCard.style.display = "none";
@@ -103,7 +102,6 @@ async function checkPosture() {
       const forwardBend = nose.y - shoulderMidY;
       const headTilt = Math.abs(nose.x - shoulderMidX);
 
-      // Debug-Anzeige
       statusText.textContent = `SchulterDiff: ${Math.round(shoulderDiff)}, Vorne: ${Math.round(forwardBend)}, Kopf: ${Math.round(headTilt)}`;
 
       const now = Date.now();
@@ -122,7 +120,6 @@ async function checkPosture() {
         showAlert(alertMsg);
       }
 
-      // Overlay zeichnen
       drawOverlay(k);
     }
   }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rückenbuddy 🐻</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- TensorFlow.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.8.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Rückenbuddy 🐻</h1>
+    <p id="statusText">Alles gut – gerade sitzen, oder?</p>
+    
+    <div class="timer">
+      <span id="minutes">00</span>:<span id="seconds">00</span>
+    </div>
+    
+    <button id="startBtn">Sitz-Check starten</button>
+    <button id="resetBtn">Zurücksetzen</button>
+
+    <!-- Webcam -->
+    <video id="webcam" autoplay playsinline width="320" height="240" style="border-radius:15px;margin-top:15px;"></video>
+
+    <!-- Alert-Card -->
+    <div class="card" id="alertCard">
+      <p id="alertText"></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@ let timerInterval;
 let totalSeconds = 0;
 let detector;
 let lastAlertTime = 0;
-const ALERT_COOLDOWN = 20 * 1000; // 20 Sekunden Cooldown
+const ALERT_COOLDOWN = 25 * 1000; // nur alle 25 Sekunden warnen
 
 const webcam = document.getElementById("webcam");
 const minutesEl = document.getElementById("minutes");
@@ -39,30 +39,41 @@ function updateTimer() {
 function showAlert(message) {
   alertText.textContent = message;
   alertCard.style.display = "block";
+  alertSound.currentTime = 0; 
   alertSound.play();
-  setTimeout(()=>{alertCard.style.display="none";}, 5000);
+  setTimeout(()=>{alertCard.style.display="none";}, 6000);
 }
 
 async function checkPosture() {
   const poses = await detector.estimatePoses(webcam);
   if (poses.length > 0) {
-    const keypoints = poses[0].keypoints;
-    const leftShoulder = keypoints.find(k => k.name === "left_shoulder");
-    const rightShoulder = keypoints.find(k => k.name === "right_shoulder");
-    if (leftShoulder && rightShoulder) {
-      const shoulderDiff = Math.abs(leftShoulder.y - rightShoulder.y);
+    const k = poses[0].keypoints;
+    const leftShoulder = k.find(p => p.name === "left_shoulder");
+    const rightShoulder = k.find(p => p.name === "right_shoulder");
+    const nose = k.find(p => p.name === "nose");
+
+    if (leftShoulder && rightShoulder && nose) {
+      const shoulderMidY = (leftShoulder.y + rightShoulder.y) / 2;
+      const shoulderMidX = (leftShoulder.x + rightShoulder.x) / 2;
+
+      const shoulderDiff = Math.abs(leftShoulder.y - rightShoulder.y); 
+      const forwardBend = nose.y - shoulderMidY; 
+      const headTilt = Math.abs(nose.x - shoulderMidX); 
+
       const now = Date.now();
-      if (shoulderDiff > 40 && now - lastAlertTime > ALERT_COOLDOWN) { // Sensibilität angepasst
+      let alertMsg = null;
+
+      if (shoulderDiff > 70) {
+        alertMsg = "Eine Schulter hängt deutlich – richte dich auf! 💪";
+      } else if (forwardBend > 120) {
+        alertMsg = "Du bist stark nach vorne gebeugt – Brust raus, Rücken stolz! 🦁";
+      } else if (headTilt > 100) {
+        alertMsg = "Dein Kopf hängt krass schief – bleib im Lot! 🙂";
+      }
+
+      if (alertMsg && now - lastAlertTime > ALERT_COOLDOWN) {
         lastAlertTime = now;
-        const texts = [
-          "Ups, dein Rücken macht wieder Yoga ohne dich! 😱",
-          "Rücken sagt: 'Hallo? Ich bin noch da!' 🤨",
-          "Gerade sitzen, bitte! Dein Rücken liebt dich. ❤️",
-          "Noch 5 Minuten, dann gibt’s Streck-Party! 🕺",
-          "Du krummst schon wieder – Zeit für ein kleines Yoga! 🧘‍♂️"
-        ];
-        const randomText = texts[Math.floor(Math.random()*texts.length)];
-        showAlert(randomText);
+        showAlert(alertMsg);
       }
     }
   }
@@ -74,7 +85,7 @@ startBtn.addEventListener("click", async () => {
   await setupCamera();
   await initPose();
   timerInterval = setInterval(updateTimer,1000);
-  statusText.textContent = "Alles läuft – Rückenbuddy überwacht dich!";
+  statusText.textContent = "Alles läuft – Rückenbuddy passt auf dich auf!";
   checkPosture();
 });
 

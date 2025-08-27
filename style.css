@@ -1,15 +1,15 @@
 :root {
-  --peachy: #FFD6C0;
-  --lime: #00FF7F;
-  --charcoal: #2E2E2E;
-  --purple: #7209B7;
-  --beige: #F4E1C4;
+  --bg: linear-gradient(135deg, #FFD6C0, #B8E4FF);
+  --card: rgba(255, 255, 255, 0.2);
+  --highlight: #00FF7F;
+  --deep: #7209B7;
+  --text-dark: #2E2E2E;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: var(--peachy);
+  background: var(--bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,52 +18,60 @@ body {
 
 .container {
   text-align: center;
-  background: rgba(255,255,255,0.4);
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
   width: 90%;
-  max-width: 400px;
+  max-width: 420px;
 }
 
 h1 {
-  color: var(--charcoal);
+  color: var(--deep);
   margin-bottom: 10px;
+  font-size: 2em;
 }
 
 .timer {
   font-size: 2.5em;
   margin: 20px 0;
-  color: var(--purple);
+  color: var(--highlight);
+  font-weight: bold;
 }
 
 button {
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 12px;
+  padding: 12px 24px;
+  margin: 8px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
 }
 
-#startBtn { background-color: var(--lime); color: #222; }
-#resetBtn { background-color: var(--purple); color: #fff; }
+#startBtn { background-color: var(--highlight); color: #111; }
+#resetBtn { background-color: var(--deep); color: #fff; }
 
 button:hover {
   transform: scale(1.05);
 }
 
+#webcam {
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
 .card {
   display: none;
-  margin-top: 20px;
+  margin-top: 25px;
   padding: 20px;
-  border-radius: 15px;
-  background: rgba(255,255,255,0.7);
-  color: var(--charcoal);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.8);
+  color: var(--text-dark);
   font-weight: bold;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
   animation: pulse 1s infinite alternate;
 }
 

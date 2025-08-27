@@ -2,7 +2,7 @@ let timerInterval;
 let totalSeconds = 0;
 let detector;
 let lastAlertTime = 0;
-const ALERT_COOLDOWN = 5000; // 5 Sekunden Cooldown für häufigere Alarme
+const ALERT_COOLDOWN = 5000; // Sound kommt alle 5 Sekunden bei Fehlhaltung
 
 const webcam = document.getElementById("webcam");
 const minutesEl = document.getElementById("minutes");
@@ -51,11 +51,11 @@ function showAlert(message) {
   alertText.textContent = message;
   alertCard.style.display = "block";
 
-  // Audio-Signal
+  // Audio abspielen
   alertSound.currentTime = 0;
   alertSound.play().catch(err => console.warn("Sound konnte nicht abgespielt werden:", err));
 
-  setTimeout(() => { alertCard.style.display = "none"; }, 4000);
+  setTimeout(()=>{ alertCard.style.display="none"; }, 4000);
 }
 
 async function checkPosture() {

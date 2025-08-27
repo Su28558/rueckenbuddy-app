@@ -16,7 +16,15 @@ body {
   height: 100vh;
 }
 
+.flex-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+}
+
 .container {
+  position: relative;
   text-align: center;
   background: var(--card);
   backdrop-filter: blur(20px);
@@ -57,10 +65,12 @@ button:hover {
   transform: scale(1.05);
 }
 
-#webcam {
+#webcam, #overlay {
   border-radius: 20px;
-  margin-top: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .card {
@@ -78,4 +88,15 @@ button:hover {
 @keyframes pulse {
   0% { transform: scale(1); }
   100% { transform: scale(1.05); }
+}
+
+.buddy-img img {
+  max-width: 200px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.buddy-alert {
+  transform: rotate(-15deg) scale(1.1);
 }

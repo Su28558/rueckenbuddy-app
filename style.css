@@ -55,22 +55,9 @@ button {
 
 button:hover { transform: scale(1.05); }
 
-.video-wrapper {
-  position: relative;
-  width: 320px;
-  height: 240px;
-  margin: 20px auto;
-}
-
-#webcam, #overlay {
-  width: 100%;
-  height: 100%;
+#webcam {
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .card {

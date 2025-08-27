@@ -16,15 +16,16 @@ body {
   height: 100vh;
 }
 
+/* Flexbox für App + Buddy-Bild */
 .flex-wrapper {
   display: flex;
-  justify-content: center;
   align-items: flex-start;
-  gap: 30px;
+  justify-content: center;
+  gap: 50px; /* Abstand zwischen App und Buddy-Bild */
 }
 
+/* App Container */
 .container {
-  position: relative;
   text-align: center;
   background: var(--card);
   backdrop-filter: blur(20px);
@@ -35,12 +36,14 @@ body {
   max-width: 420px;
 }
 
+/* Überschrift */
 h1 {
   color: var(--deep);
   margin-bottom: 10px;
   font-size: 2em;
 }
 
+/* Timer */
 .timer {
   font-size: 2.5em;
   margin: 20px 0;
@@ -48,6 +51,7 @@ h1 {
   font-weight: bold;
 }
 
+/* Buttons */
 button {
   padding: 12px 24px;
   margin: 8px;
@@ -65,14 +69,27 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Video + Overlay Wrapper */
+.video-wrapper {
+  position: relative;
+  width: 320px;
+  height: 240px;
+  margin: 0 auto;
+}
+
+/* Video + Overlay Styling */
 #webcam, #overlay {
+  width: 100%;
+  height: 100%;
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  position: absolute;
+  display: block;
+  position: absolute; /* Overlay über Video */
   top: 0;
   left: 0;
 }
 
+/* Alert Card */
 .card {
   display: none;
   margin-top: 25px;
@@ -90,13 +107,17 @@ button:hover {
   100% { transform: scale(1.05); }
 }
 
+/* Buddy-Bild rechts */
 .buddy-img img {
-  max-width: 200px;
+  width: 250px; /* Bildgröße */
+  height: auto;
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
   transition: transform 0.3s ease;
+  background: transparent; /* transparent sicherstellen */
 }
 
+/* Buddy wippt beim Alert */
 .buddy-alert {
   transform: rotate(-15deg) scale(1.1);
 }

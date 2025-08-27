@@ -2,7 +2,7 @@ let timerInterval;
 let totalSeconds = 0;
 let detector;
 let lastAlertTime = 0;
-const ALERT_COOLDOWN = 5000; // Sound kommt alle 5 Sekunden bei Fehlhaltung
+const ALERT_COOLDOWN = 4000; // 4 Sekunden für häufige Alarme
 
 const webcam = document.getElementById("webcam");
 const minutesEl = document.getElementById("minutes");
@@ -51,7 +51,6 @@ function showAlert(message) {
   alertText.textContent = message;
   alertCard.style.display = "block";
 
-  // Audio abspielen
   alertSound.currentTime = 0;
   alertSound.play().catch(err => console.warn("Sound konnte nicht abgespielt werden:", err));
 
@@ -64,16 +63,26 @@ async function checkPosture() {
     const keypoints = poses[0].keypoints;
     const leftShoulder = keypoints.find(k => k.name === "left_shoulder");
     const rightShoulder = keypoints.find(k => k.name === "right_shoulder");
-    if (leftShoulder && rightShoulder) {
+    const nose = keypoints.find(k => k.name === "nose");
+
+    if (leftShoulder && rightShoulder && nose) {
       const shoulderDiff = Math.abs(leftShoulder.y - rightShoulder.y);
+      const shoulderMidX = (leftShoulder.x + rightShoulder.x)/2;
+      const shoulderMidY = (leftShoulder.y + rightShoulder.y)/2;
+
+      const headTilt = Math.abs(nose.x - shoulderMidX);
+      const forwardBend = nose.y - shoulderMidY;
+
       const now = Date.now();
-      if (shoulderDiff > 40 && now - lastAlertTime > ALERT_COOLDOWN) {
+
+      if ((shoulderDiff > 30 || headTilt > 15 || forwardBend > 15) && now - lastAlertTime > ALERT_COOLDOWN) {
         lastAlertTime = now;
-        const randomText = alertMessages[Math.floor(Math.random()*alertMessages.length)];
+        const randomText = alertMessages[Math.floor(Math.random() * alertMessages.length)];
         showAlert(randomText);
       }
     }
   }
+
   requestAnimationFrame(checkPosture);
 }
 
